@@ -1,0 +1,73 @@
+# Probabilistic Anchor Assignment with IoU Prediction for Object Detection
+
+By Kang Kim and Hee Seok Lee.
+
+## Introduction
+This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection`, based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
+
+
+## Installation
+Please check [INSTALL.md](INSTALL.md) for installation instructions.
+
+## Inference
+The inference command line on coco minival split:
+
+    python tools/test_net.py \
+        --config-file configs/paa/paa_R_50_FPN_1x.yaml \
+        MODEL.WEIGHT [/path/to/weight] \
+        TEST.IMS_PER_BATCH 4    
+
+Please note that:
+1) If your model's name is different, please replace `PAA_R_50_FPN_1x.pth` with your own.
+2) If you enounter out-of-memory error, please try to reduce `TEST.IMS_PER_BATCH` to 1.
+3) If you want to evaluate a different model, please change `--config-file` to its config file (in [configs/paa](configs/paa)) and `MODEL.WEIGHT` to its weights file.
+
+## Results on COCO
+We provide the performance of the following trained models. All models are trained with the configuration same as [ATSS](https://github.com/sfzhang15/ATSS).
+
+Model | Multi-scale training | Multi-scale testing | AP (minival) | AP (test-dev)
+--- |:---:|:---:|:---:|:---:
+PAA_R_50_FPN_1x | No | No | 40.7 | 40.8
+PAA_R_50_FPN_1.5x | No | No | 41.1 | 41.2
+PAA_R_101_FPN_2x | Yes | No | 44.5 | 44.8
+PAA_dcnv2_R_101_FPN_2x | Yes | No | 47.0 | 47.4
+PAA_X_101_64x4d_FPN_2x | Yes | No | 46.3 | 46.6
+PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | No | 48.8 | 49.0
+PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | No | 48.9 | 49.0
+PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | No | 50.4 | 50.8
+PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | Yes | 51.2 | 51.4
+PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | Yes | 51.2 | 51.4
+PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | Yes | 53.0 | 53.5
+
+[1] *1x , 1.5x and 2x mean the model is trained for 90K, 135K and 180K iterations, respectively.* \
+[2] *All results are obtained with a single model.* \
+[3] *`dcnv2` denotes deformable convolutional networks v2. Note that for ResNet based models, we apply deformable convolutions from stage c3 to c5 in backbones. For ResNeXt based models only stage c4 and c5 use deformable convolutions. All dcnv2 models use deformable convolutions in the last layer of detector towers.* \
+[4] *Please use `TEST.BBOX_AUG.ENABLED True` to enable multi-scale testing.*
+
+### Results of Faster R-CNN
+We also provide experimental results that apply PAA to Region Proposal Network of Faster R-CNN. Code will be available soon.
+
+Model | AP (minival) | AP50 | AP75 | APs | APm | APl
+--- |:---:|:---:|:---:|:---:|:---:|:---:
+Faster_R_50_FPN_1x | 37.989 | 58.810 | 41.314 | 22.361 | 41.522 | 49.584
+Faster_R_50_FPN_PAA_1x | 39.292 | 60.019 | 42.567 | 22.650 | 43.170 | 51.875
+
+## Training
+
+The following command line will train PAA_R_50_FPN_1x on 8 GPUs with Synchronous Stochastic Gradient Descent (SGD):
+
+    python -m torch.distributed.launch \
+        --nproc_per_node=8 \
+        --master_port=$((RANDOM + 10000)) \
+        tools/train_net.py \
+        --config-file configs/paa/paa_R_50_FPN_1x.yaml \
+        DATALOADER.NUM_WORKERS 2 \
+        OUTPUT_DIR training_dir/paa_R_50_FPN_1x
+        
+Please note that:
+1) If you want to use fewer GPUs, please change `--nproc_per_node` to the number of GPUs. No other settings need to be changed. The total batch size does not depends on `nproc_per_node`. If you want to change the total batch size, please change `SOLVER.IMS_PER_BATCH` in [configs/paa/paa_R_50_FPN_1x.yaml](configs/paa/paa_R_50_FPN_1x.yaml).
+2) The models will be saved into `OUTPUT_DIR`.
+3) If you want to train PAA with other backbones, please change `--config-file`.
+
+## Contributing to the project
+Any pull requests or issues are welcome.
