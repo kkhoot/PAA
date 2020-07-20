@@ -4,6 +4,7 @@ from torch.nn import functional as F
 from torch import nn
 import os
 from ..utils import concat_box_prediction_layers
+from paa_core.layers import smooth_l1_loss
 from paa_core.layers import SigmoidFocalLoss
 from paa_core.modeling.matcher import Matcher
 from paa_core.structures.boxlist_ops import boxlist_iou
