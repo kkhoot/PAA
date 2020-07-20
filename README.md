@@ -25,19 +25,19 @@ Please note that:
 ## Results on COCO
 We provide the performance of the following trained models. All models are trained with the configuration same as [ATSS](https://github.com/sfzhang15/ATSS).
 
-Model | Multi-scale training | Multi-scale testing | AP (minival) | AP (test-dev)
---- |:---:|:---:|:---:|:---:
-PAA_R_50_FPN_1x | No | No | 40.7 | 40.8
-PAA_R_50_FPN_1.5x | No | No | 41.1 | 41.2
-PAA_R_101_FPN_2x | Yes | No | 44.5 | 44.8
-PAA_dcnv2_R_101_FPN_2x | Yes | No | 47.0 | 47.4
-PAA_X_101_64x4d_FPN_2x | Yes | No | 46.3 | 46.6
-PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | No | 48.8 | 49.0
-PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | No | 48.9 | 49.0
-PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | No | 50.4 | 50.8
-PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | Yes | 51.2 | 51.4
-PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | Yes | 51.2 | 51.4
-PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | Yes | 53.0 | 53.5
+Model | Multi-scale training | Multi-scale testing | AP (minival) | AP (test-dev) | Checkpoint
+--- |:---:|:---:|:---:|:---:|:---:
+PAA_R_50_FPN_1x | No | No | 40.7 | 40.8 | -
+PAA_R_50_FPN_1.5x | No | No | 41.1 | 41.2 | [link](https://drive.google.com/file/d/1i8i38lCkItS7H2gYN20Om_OyNJeAupoC/view?usp=sharing)
+PAA_R_101_FPN_2x | Yes | No | 44.5 | 44.8 | [link](https://drive.google.com/file/d/1sXnTHtC51JPq53LHMEtadX5KY8lTnJpq/view?usp=sharing)
+PAA_dcnv2_R_101_FPN_2x | Yes | No | 47.0 | 47.4 | -
+PAA_X_101_64x4d_FPN_2x | Yes | No | 46.3 | 46.6 | -
+PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | No | 48.8 | 49.0 | -
+PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | No | 48.9 | 49.0 | -
+PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | No | 50.4 | 50.8 | [link](https://drive.google.com/file/d/1CjsgE_faZFcpLRHvF7r6GFVC8AL3sZ_4/view?usp=sharing)
+PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | Yes | 51.2 | 51.4 | -
+PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | Yes | 51.2 | 51.4 | -
+PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | Yes | 53.0 | 53.5 | [link](https://drive.google.com/file/d/1CjsgE_faZFcpLRHvF7r6GFVC8AL3sZ_4/view?usp=sharing)
 
 [1] *1x , 1.5x and 2x mean the model is trained for 90K, 135K and 180K iterations, respectively.* \
 [2] *All results are obtained with a single model.* \
