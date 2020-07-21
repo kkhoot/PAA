@@ -3,7 +3,7 @@
 By Kang Kim and Hee Seok Lee.
 
 ## Introduction
-This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection`, based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
+This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection` ([paper link](https://arxiv.org/abs/2007.08103)), based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
 
 
 ## Installation
