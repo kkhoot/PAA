@@ -10,7 +10,7 @@ MODEL:
     BACKBONE_OUT_CHANNELS: 256
     NUM_GROUPS: 32
     WIDTH_PER_GROUP: 8
-    STAGE_WITH_DCN: (False, True, True, True)
+    STAGE_WITH_DCN: (False, False, True, True)
     WITH_MODULATED_DCN: True
     DEFORMABLE_GROUPS: 1
   RETINANET:
