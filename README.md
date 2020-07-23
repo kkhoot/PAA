@@ -8,6 +8,7 @@ This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment w
 
 ## Installation
 Please check [INSTALL.md](INSTALL.md) for installation instructions.
+Note: The code is compatible with **PyTorch<=1.4**.
 
 ## Inference
 The inference command line on coco minival split:
