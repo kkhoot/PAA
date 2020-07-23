@@ -207,13 +207,13 @@ class PAALossComputation(object):
                             fg_max_idx = (fgs & (scores == fg_max_score)).nonzero().min()
                             is_pos = inds[:fg_max_idx+1]
 
-                            # half half (Fig 2. (a))
+                            # half half (Fig 3. (a))
 #                                    probs = gmm.predict_proba(candidate_loss)
 #                                    pos_high = probs[:, 0] >= probs[:, 1]
 #                                    is_pos = inds[pos_high]
                             # half half end
 
-                            # ignore middle (Fig 2. (b))
+                            # ignore middle (Fig 3. (b))
                             if bgs.nonzero().numel() > 0:
                                 is_grey = inds[fgs | bgs]
                                 bg_max_score = scores[bgs].max().item()
@@ -223,7 +223,7 @@ class PAALossComputation(object):
                                 is_neg = is_grey = None
                             # ignore middle end
 
-                            # ignore middlehalf (Fig 2. (d))
+                            # ignore middlehalf (Fig 3. (d))
 #                                    probs = gmm.predict_proba(candidate_loss)
 #                                    pos_high = probs[:, 0] >= probs[:, 1]
 #                                    is_grey = inds[pos_high]
@@ -257,8 +257,9 @@ class PAALossComputation(object):
 
         return cls_labels, reg_targets
 
-    def compute_reg_loss(self, regression_targets, box_regression,
-                         all_anchors, labels, locations, n_anchors, weights, N):
+    def compute_reg_loss(
+        self, regression_targets, box_regression, all_anchors, labels, weights
+    ):
         if 'iou' in self.reg_loss_type:
             reg_loss = self.GIoULoss(box_regression,
                                      regression_targets,
@@ -318,10 +319,7 @@ class PAALossComputation(object):
                                                        box_regression_flatten.detach(),
                                                        anchors_flatten,
                                                        iou_based_labels_flatten,
-                                                       locations,
-                                                       n_anchors,
-                                                       weights=None,
-                                                       N=N)
+                                                       weights=None)
             iou_based_reg_loss_full = torch.full((iou_based_cls_loss.shape[0],),
                                                   fill_value=INF,
                                                   device=iou_based_cls_loss.device)
@@ -369,10 +367,7 @@ class PAALossComputation(object):
                                              box_regression_flatten,
                                              anchors_flatten,
                                              labels_flatten[pos_inds],
-                                             locations,
-                                             n_anchors,
-                                             weights=reg_loss_weight,
-                                             N=N)
+                                             weights=reg_loss_weight)
             cls_loss = self.cls_loss_func(box_cls_flatten, labels_flatten.int(), sum=False)
         else:
             reg_loss = box_regression_flatten.sum()
