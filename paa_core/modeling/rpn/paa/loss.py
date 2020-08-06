@@ -203,36 +203,11 @@ class PAALossComputation(object):
                         fgs = components == 0
                         bgs = components == 1
                         if fgs.nonzero().numel() > 0:
+                            # Fig 3. (c)
                             fg_max_score = scores[fgs].max().item()
                             fg_max_idx = (fgs & (scores == fg_max_score)).nonzero().min()
+                            is_neg = inds[fgs | bgs]
                             is_pos = inds[:fg_max_idx+1]
-
-                            # half half (Fig 3. (a))
-#                                    probs = gmm.predict_proba(candidate_loss)
-#                                    pos_high = probs[:, 0] >= probs[:, 1]
-#                                    is_pos = inds[pos_high]
-                            # half half end
-
-                            # ignore middle (Fig 3. (b))
-                            if bgs.nonzero().numel() > 0:
-                                is_grey = inds[fgs | bgs]
-                                bg_max_score = scores[bgs].max().item()
-                                bg_max_idx = (bgs & (scores == bg_max_score)).nonzero().min()
-                                is_neg = inds[-bg_max_idx-1:]
-                            else:
-                                is_neg = is_grey = None
-                            # ignore middle end
-
-                            # ignore middlehalf (Fig 3. (d))
-#                                    probs = gmm.predict_proba(candidate_loss)
-#                                    pos_high = probs[:, 0] >= probs[:, 1]
-#                                    is_grey = inds[pos_high]
-#                                    if bgs.nonzero().numel() > 0:
-#                                        pos_neg = probs[:, 0] < probs[:, 1]
-#                                        is_neg = inds[pos_neg]
-#                                    else:
-#                                        is_neg = None
-                            # ignore middlehalf end
                         else:
                             # just treat all samples as positive for high recall.
                             is_pos = inds
