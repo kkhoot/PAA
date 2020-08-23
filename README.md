@@ -30,7 +30,7 @@ Model | Multi-scale training | Multi-scale testing | AP (minival) | AP (test-dev
 --- |:---:|:---:|:---:|:---:|:---:
 PAA_R_50_FPN_1x | No | No | 40.4 | - | -
 PAA_R_50_FPN_1.5x | No | No | 41.1 | 41.2 | [link](https://drive.google.com/file/d/1i8i38lCkItS7H2gYN20Om_OyNJeAupoC/view?usp=sharing)
-PAA_R_101_FPN_2x | Yes | No | 44.5 | 44.8 | [link](https://drive.google.com/file/d/1sXnTHtC51JPq53LHMEtadX5KY8lTnJpq/view?usp=sharing)
+PAA_R_101_FPN_2x | Yes | No | 44.5 | 44.8 | [link](https://drive.google.com/file/d/1XGomiYsB-vHKs4eIw_OtgByJ2YJn-Hsc/view?usp=sharing)
 PAA_dcnv2_R_101_FPN_2x | Yes | No | 47.0 | 47.4 | -
 PAA_X_101_64x4d_FPN_2x | Yes | No | 46.3 | 46.6 | -
 PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | No | 48.8 | 49.0 | -
