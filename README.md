@@ -2,6 +2,8 @@
 
 By Kang Kim and Hee Seok Lee.
 
+__Note__: PAA is available at [mmdetection](https://github.com/open-mmlab/mmdetection/tree/master/configs/paa). Many thanks to [@jshilong](https://github.com/jshilong) for the great work!
+
 ## Introduction
 This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection` ([paper link](https://arxiv.org/abs/2007.08103)), based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
 
