@@ -74,3 +74,13 @@ Please note that:
 
 ## Contributing to the project
 Any pull requests or issues are welcome.
+
+## Citation
+```
+@inproceedings{paa-eccv2020,
+  title={Probabilistic Anchor Assignment with IoU Prediction for Object Detection},
+  author={Kim, Kang and Lee, Hee Seok},
+  booktitle = {ECCV},
+  year={2020}
+}
+```
