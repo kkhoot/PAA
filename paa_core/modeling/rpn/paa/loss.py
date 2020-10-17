@@ -131,8 +131,8 @@ class PAALossComputation(object):
             targets (batch_size): list of BoxLists for GT bboxes
             anchors (batch_size, feature_lvls): anchor boxes per feature level
             labels_all (batch_size x num_anchors): assigned labels
-            loss_all (batch_size x numa_nchors): calculated loss
-            matched_idx_all (batch_size x numa_nchors): best-matched GG bbox indexes
+            loss_all (batch_size x num_anchors): calculated loss
+            matched_idx_all (batch_size x num_anchors): best-matched GG bbox indexes
         """
         device = loss_all.device
         cls_labels = []
@@ -162,7 +162,10 @@ class PAALossComputation(object):
                     loss_per_level = loss_all_per_im[star_idx:end_idx]
                     labels_per_level = labels_all_per_im[star_idx:end_idx]
                     matched_idx_per_level = matched_idx_all_per_im[star_idx:end_idx]
-                    match_idx = ((matched_idx_per_level == gt) &(labels_per_level > 0)).nonzero()[:, 0]
+                    match_idx = torch.nonzero(
+                        (matched_idx_per_level == gt) & (labels_per_level > 0),
+                        as_tuple=False
+                    )[:, 0]
                     if match_idx.numel() > 0:
                         _, topk_idxs = loss_per_level[match_idx].topk(
                             min(match_idx.numel(), self.cfg.MODEL.PAA.TOPK), largest=False)
@@ -202,10 +205,10 @@ class PAALossComputation(object):
                         scores = torch.from_numpy(scores).to(device)
                         fgs = components == 0
                         bgs = components == 1
-                        if fgs.nonzero().numel() > 0:
+                        if torch.nonzero(fgs, as_tuple=False).numel() > 0:
                             # Fig 3. (c)
                             fg_max_score = scores[fgs].max().item()
-                            fg_max_idx = (fgs & (scores == fg_max_score)).nonzero().min()
+                            fg_max_idx = torch.nonzero(fgs & (scores == fg_max_score), as_tuple=False).min()
                             is_neg = inds[fgs | bgs]
                             is_pos = inds[:fg_max_idx+1]
                         else:
@@ -280,7 +283,7 @@ class PAALossComputation(object):
             iou_pred_flatten = [ip.permute(0, 2, 3, 1).reshape(N, -1, 1) for ip in iou_pred]
             iou_pred_flatten = torch.cat(iou_pred_flatten, dim=1).reshape(-1)
 
-        pos_inds = torch.nonzero(iou_based_labels_flatten > 0).squeeze(1)
+        pos_inds = torch.nonzero(iou_based_labels_flatten > 0, as_tuple=False).squeeze(1)
 
         if pos_inds.numel() > 0:
             n_anchors = box_regression[0].shape[1] // 4
@@ -297,7 +300,8 @@ class PAALossComputation(object):
                                                        weights=None)
             iou_based_reg_loss_full = torch.full((iou_based_cls_loss.shape[0],),
                                                   fill_value=INF,
-                                                  device=iou_based_cls_loss.device)
+                                                  device=iou_based_cls_loss.device,
+                                                  dtype=iou_based_cls_loss.dtype)
             iou_based_reg_loss_full[pos_inds] = iou_based_reg_loss.view(-1, n_loss_per_box).mean(1)
             combined_loss = iou_based_cls_loss.sum(dim=1) + iou_based_reg_loss_full
             assert not torch.isnan(combined_loss).any()
@@ -313,7 +317,7 @@ class PAALossComputation(object):
             num_gpus = get_num_gpus()
             labels_flatten = torch.cat(labels, dim=0).int()
             reg_targets_flatten = torch.cat(reg_targets, dim=0)
-            pos_inds = torch.nonzero(labels_flatten > 0).squeeze(1)
+            pos_inds = torch.nonzero(labels_flatten > 0, as_tuple=False).squeeze(1)
             total_num_pos = reduce_sum(pos_inds.new_tensor([pos_inds.numel()])).item()
             num_pos_avg_per_gpu = max(total_num_pos / float(num_gpus), 1.0)
 
