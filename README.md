@@ -2,14 +2,21 @@
 
 By Kang Kim and Hee Seok Lee.
 
+This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection` ([paper link](https://arxiv.org/abs/2007.08103)), based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
+
 ## Note
 Now the code supports **PyTorch 1.6**.
 
 PAA is available at [mmdetection](https://github.com/open-mmlab/mmdetection/tree/master/configs/paa). Many thanks to [@jshilong](https://github.com/jshilong) for the great work!
 
 ## Introduction
-This is a PyTorch implementation of the paper `Probabilistic Anchor Assignment with IoU Prediction for Object Detection` ([paper link](https://arxiv.org/abs/2007.08103)), based on [ATSS](https://github.com/sfzhang15/ATSS) and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
-
+In object detection, determining which anchors to assign as positive or negative samples, known as __anchor assignment__, has been revealed as a core procedure that can significantly affect a model's performance. In this paper we propose a novel anchor assignment strategy that adaptively separates anchors into positive and negative samples for a ground truth bounding box according to the model's learning status such that it is able to reason about the separation in a probabilistic manner. To do so we first calculate the scores of anchors conditioned on the model and fit a probability distribution to these scores. The model is then trained with anchors separated into positive and negative samples according to their probabilities. Moreover, we investigate the gap between the training and testing objectives and propose to predict the Intersection-over-Unions of detected boxes as a measure of localization quality to reduce the discrepancy.
+<div align="center">
+  <img src="eccv2020_fig1.jpg" width="1000"/>
+</div>
+<div align="center">
+  <img src="box_vis_cat.jpg" width="500"/>
+</div>
 
 ## Installation
 Please check [INSTALL.md](INSTALL.md) for installation instructions.
