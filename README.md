@@ -47,7 +47,7 @@ PAA_X_101_64x4d_FPN_2x | Yes | No | 46.4 | 46.8 | [link](https://drive.google.co
 PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | No | 48.8 | 49.2 | [link](https://drive.google.com/file/d/1YFUZyLlJlcaT_sJ8SOSeBuu2j1oEzsHm/view?usp=sharing)
 PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | No | 48.9 | 49.0 | -
 PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | No | 50.5 | 50.8 | [link](https://drive.google.com/file/d/1CjsgE_faZFcpLRHvF7r6GFVC8AL3sZ_4/view?usp=sharing)
-PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | Yes | 51.2 | 51.4 | -
+PAA_dcnv2_X_101_64x4d_FPN_2x | Yes | Yes | 51.3 | 51.6 | [link](https://drive.google.com/file/d/1YFUZyLlJlcaT_sJ8SOSeBuu2j1oEzsHm/view?usp=sharing)
 PAA_dcnv2_X_101_32x8d_FPN_2x | Yes | Yes | 51.2 | 51.4 | -
 PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | Yes | 53.0 | 53.5 | [link](https://drive.google.com/file/d/1CjsgE_faZFcpLRHvF7r6GFVC8AL3sZ_4/view?usp=sharing)
 
