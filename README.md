@@ -57,7 +57,7 @@ PAA_dcnv2_X_152_32x8d_FPN_2x | Yes | Yes | 53.0 | 53.5 | [link](https://drive.go
 [4] *Please use `TEST.BBOX_AUG.ENABLED True` to enable multi-scale testing.*
 
 ### Results of Faster R-CNN
-We also provide experimental results that apply PAA to Region Proposal Network of Faster R-CNN. Code will be available soon.
+We also provide experimental results that apply PAA to Region Proposal Network of Faster R-CNN. Code is available at [PAA_Faster-RCNN](https://github.com/kkhoot/PAA_Faster-RCNN).
 
 Model | AP (minival) | AP50 | AP75 | APs | APm | APl
 --- |:---:|:---:|:---:|:---:|:---:|:---:
